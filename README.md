@@ -24,5 +24,5 @@ O sistema permite realizar as quatro operações básicas (CRUD) para o gerencia
 
 2. **Clonando o repositório:**
    ```bash
-   git clone [https://github.com/maurocollin/sistema-notas-crud.git](https://github.com/maurocollin/sistema-notas-crud.git)
+   git clone https://github.com/maurocollin/sistema-notas-crud.git
    cd sistema-notas-crud
