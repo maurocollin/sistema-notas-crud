@@ -52,24 +52,29 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
 ## 🚀 Como Executar
 
 1. **Pré-requisitos:**
+
    Certifique-se de ter o Python3 instalado em sua máquina.
 
 2. **Clonando o repositório:**
+
    ```bash
    git clone https://github.com/maurocollin/sistema-notas-crud.git
    cd sistema-notas-crud
    ```
 
 3. **Criar o Ambiente Virtual:**
+
    Execute o comando abaixo para criar a pasta do ambiente virtual (geralmente chamada de `.venv`):
 
 * **No Windows (PowerShell / Prompt de Comando):**
+
    ```bash
   python -m venv .venv
   .venv\Scripts\Activate.ps1
   .venv\Scripts\activate.bat
    ```
 * **No Linux / macOS:**
+
    ```bash
   python3 -m venv .venv
   source .venv/bin/activate
@@ -83,16 +88,19 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
 Como o projeto utiliza apenas as ferramentas nativas do próprio Python, o processo para rodar a aplicação após ativar o ambiente virtual é extremamente simples:
 
 ### 1. Pré-requisitos
+
 Certifique-se de ter o **Python 3** instalado em sua máquina. Você pode verificar digitando no seu terminal com a venv ativa:
 python --version
 
 ### 2. Executar o Aplicativo
+
 Execute o arquivo principal pelo terminal:
 python app_notas.py
 
 *(Nota: O banco de dados `notas.db` será criado de forma 100% automática na mesma pasta no primeiro início do programa, dispensando qualquer script de criação prévia).*
 
 ### 3. Desativar o Ambiente Virtual (Opcional)
+
 Quando terminar de trabalhar no projeto e quiser voltar para o terminal normal do seu computador, basta digitar:
 deactivate
 
