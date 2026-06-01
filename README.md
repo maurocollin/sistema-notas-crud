@@ -76,10 +76,10 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
 
 3. **Finalmente execute o programa:**
 
-  ```bash
+   ```bash
   python3 app_notas.py
-  ```
-  
+   ```
+
 ---
 
 ## ⚙️ Arquitetura e Diferenciais do Projeto (Destaque para a Avaliação)
