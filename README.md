@@ -17,7 +17,7 @@ Este projeto consiste em uma aplicação desktop completa com uma interface grá
 Conforme os requisitos da atividade, optou-se pela utilização do **SQLite** por ser embutido, portátil e mais leve.
 
 ### Ganhos:
-* **Portabilidade:** A base de dados é um ficheiro único (`sistema_notas.db`), permitindo a execução imediata sem a necessidade de configurar um servidor externo como o PostgreSQL.
+* **Portabilidade:** A base de dados é um ficheiro único (`notas.db`), permitindo a execução imediata sem a necessidade de configurar um servidor externo como o PostgreSQL.
 * **Agilidade no Desenvolvimento:** Ideal para prototipagem rápida e aplicações de pequeno porte.
 
 ### Perdas:
