@@ -53,26 +53,26 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
 
 1. **Clonando o repositório:**
 
-   ```bash
+```bash
    git clone https://github.com/maurocollin/sistema-notas-crud.git
    cd sistema-notas-crud
-   ```
+```
 
 2. **Criar o Ambiente Virtual:**
 
 * **No Windows (PowerShell / Prompt de Comando):**
 
-   ```bash
+```bash
   python -m venv .venv
   .venv\Scripts\Activate.ps1
   .venv\Scripts\activate.bat
-   ```
+```
 * **No Linux / macOS:**
 
-   ```bash
+```bash
   python3 -m venv .venv
   source .venv/bin/activate
-   ```
+```
 
 3. **Finalmente execute o programa:**
 
