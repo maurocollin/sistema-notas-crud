@@ -1,7 +1,6 @@
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox, ttk
-import sv_ttk
 
 # ==========================================
 # 1. BANCO DE DADOS
@@ -31,9 +30,6 @@ class AppCadastroNotas:
         self.root.geometry("800x550")
         self.id_selecionado = None
 
-        # 2. Ativa o Modo Escuro Global para o Tkinter
-        sv_ttk.set_theme("dark")
-
         # --- FRAME DE ENTRADA ---
         frame_form = ttk.LabelFrame(root, text=" Dados do Aluno ", padding=10)
         frame_form.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
@@ -41,7 +37,6 @@ class AppCadastroNotas:
         # Nome
         ttk.Label(frame_form, text="Nome:").grid(row=0, column=0, sticky="w")
         self.txt_nome = ttk.Entry(frame_form, width=40)
-        # USAMOS columnspan=2 para o Nome se estender para a direita sem alargar a coluna 1
         self.txt_nome.grid(row=0, column=1, columnspan=2, pady=5, sticky="w")
         
         # Matrícula
