@@ -1,17 +1,29 @@
 # 📊 Sistema de Gerenciamento de Notas (CRUD)
 
 > ### 🏫 Entrega de Projeto Universitário
+> * **Curso:** Análise e Desenvolvimento de Sistemas (ADS) 
 > * **Aluno:** Mauro Henrique Collin Ferreira
-> * **Matrícula:** [Inserir seu número de matrícula aqui]
+> * **Matrícula:** 202403689601
 > * **Disciplina:** Desenvolvimento Rápido de Aplicações em Python (RAD)
-> * **Professor:** [Inserir nome do professor aqui]
-> * **Grupo:** GRUPO 4
+> * **Professor:** Ralfh V Ansuattigui
 
 ---
 
 Este projeto consiste em uma aplicação desktop completa com uma interface gráfica nativa voltada para a gestão escolar. O sistema implementa o padrão **CRUD** (Create, Read, Update, Delete), possibilitando o controle de alunos, suas respectivas notas e o cálculo automatizado de médias acadêmicas.
 
 ---
+
+## Análise Técnica: SQLite vs PostgreSQL
+Conforme os requisitos da atividade, optou-se pela utilização do **SQLite** por ser embutido, portátil e mais leve.
+
+### Ganhos:
+* **Portabilidade:** A base de dados é um ficheiro único (`sistema_notas.db`), permitindo a execução imediata sem a necessidade de configurar um servidor externo como o PostgreSQL.
+* **Agilidade no Desenvolvimento:** Ideal para prototipagem rápida e aplicações de pequeno porte.
+
+### Perdas:
+* **Escalabilidade:** O SQLite não suporta múltiplos acessos simultâneos de escrita tão eficientemente quanto o PostgreSQL.
+* **Segurança:** Ausência de um sistema robusto de gestão de utilizadores e permissões a nível de motor de base de dados.
+
 
 ## 📋 Funcionalidades do Aplicativo
 
@@ -33,44 +45,35 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
 * **Python 3:** Linguagem de programação principal.
 * **Tkinter (`ttk`):** Biblioteca nativa do Python para criação de componentes visuais modernos e limpos.
 * **SQLite3:** Banco de dados relacional embutido de altíssima performance, que dispensa configurações complexas ou servidores externos.
+* **Gerenciamento de Código:** Git e GitHub
 
 ---
 
-## 📦 Como Criar e Utilizar um Ambiente Virtual (`venv`)
+## 🚀 Como Executar
 
-Criar um ambiente virtual (`venv`) é uma excelente prática no desenvolvimento em Python. Ele funciona como uma "pasta isolada" para o seu projeto, garantindo que a execução do script e futuras dependências não entrem em conflito com o Python global do seu computador ou com outros projetos.
+1. **Pré-requisitos:**
+   Certifique-se de ter o Python3 instalado em sua máquina.
 
-Siga o passo a passo abaixo no terminal do seu VS Code (garanta que você está na pasta raiz do projeto, `C:\projetos\RAD_CRUD`):
-
-### 1. Criar o Ambiente Virtual
-
-Execute o comando abaixo para criar a pasta do ambiente virtual (geralmente chamada de `.venv`):
+2. **Clonando o repositório:**
+   ```bash
+   git clone https://github.com/maurocollin/sistema-notas-crud.git
+   cd sistema-notas-crud
+   ```
+3. **Criar o Ambiente Virtual:**
+   Execute o comando abaixo para criar a pasta do ambiente virtual (geralmente chamada de `.venv`):
 
 * **No Windows (PowerShell / Prompt de Comando):**
   python -m venv .venv
-
-* **No Linux / macOS:**
-  python3 -m venv .venv
-
-*(Uma nova pasta chamada `.venv` surgirá no diretório do seu projeto).*
-
-### 2. Ativar o Ambiente Virtual
-
-Antes de rodar o script, você precisa "entrar" nesse ambiente isolado. O comando varia dependendo do terminal que você está usando no VS Code:
-
-* **No Windows (PowerShell - Padrão do VS Code):**
   .venv\Scripts\Activate.ps1
-  
-  *Nota: Se o PowerShell apresentar um erro de permissão (Execution Policy), você pode ativar usando o Prompt de Comando tradicional (cmd):*
   .venv\Scripts\activate.bat
 
 * **No Linux / macOS:**
+  python3 -m venv .venv
   source .venv/bin/activate
 
-**💡 Como saber se deu certo?** O nome do ambiente `.venv` aparecerá entre parênteses no início da linha do seu terminal, indicando que ele está ativo, assim:  
-`(.venv) PS C:\projetos\RAD_CRUD>`
+*(Uma nova pasta chamada `.venv` surgirá no diretório do seu projeto).*
 
----
+
 
 ## 🚀 Como Executar o Projeto Localmente
 
