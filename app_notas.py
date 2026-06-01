@@ -106,7 +106,7 @@ class AppCadastroNotas:
             notas = [float(getattr(self, f'txt_n{i}').get()) for i in range(1, 5)]
             if any(n < 0 or n > 10 for n in notas):
                 raise ValueError
-            return notas, sum(notas)/4
+            return notas, round(sum(notas)/4, 2)  # Adicionado o round com 2 casas
         except ValueError:
             messagebox.showerror("Erro", "Insira notas válidas (0 a 10)!")
             return None, None
@@ -128,16 +128,18 @@ class AppCadastroNotas:
             messagebox.showerror("Erro", "Matrícula já existe.")
 
     def listar(self):
-        for i in self.tabela.get_children(): self.tabela.delete(i)
-        conn = sqlite3.connect("notas.db")
-        for row in conn.execute("SELECT * FROM alunos"):
-            self.tabela.insert("", "end", values=row)
-        conn.close()
+            for i in self.tabela.get_children(): self.tabela.delete(i)
+            conn = sqlite3.connect("notas.db")
+            for row in conn.execute("SELECT * FROM alunos"):
+                lista_row = list(row)
+                lista_row[7] = f"{row[7]:.2f}"
+                self.tabela.insert("", "end", values=lista_row)
+            conn.close()
 
     def carregar_selecionado(self, event):
         sel = self.tabela.selection()
         if not sel: return
-        
+
         # Extrai os valores da linha clicada
         val = self.tabela.item(sel[0], "values")
         self.id_selecionado = val[0]
