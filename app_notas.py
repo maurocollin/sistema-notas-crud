@@ -26,7 +26,7 @@ def inicializar_banco():
 class AppCadastroNotas:
     def __init__(self, root):
         self.root = root
-        self.root.title("Sistema de Notas - CRUD - GRUPO 4")
+        self.root.title("Sistema de Notas - CRUD - Mauro Collin")
         self.root.geometry("800x550")
         self.id_selecionado = None
 
