@@ -49,7 +49,7 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
 
 ---
 
-## 🚀 Como Executar
+## 🚀 Como executar o Projeto
 
 1. **Pré-requisitos:**
 
@@ -81,35 +81,8 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
    ```
 *(Uma nova pasta chamada `.venv` surgirá no diretório do seu projeto).*
 
-
-
-## 🚀 Como Executar o Projeto Localmente
-
-Como o projeto utiliza apenas as ferramentas nativas do próprio Python, o processo para rodar a aplicação após ativar o ambiente virtual é extremamente simples:
-
-### 1. Pré-requisitos
-
-Certifique-se de ter o **Python 3** instalado em sua máquina. Você pode verificar digitando no seu terminal com a venv ativa:
-python --version
-
-### 2. Executar o Aplicativo
-
-Execute o arquivo principal pelo terminal:
-python app_notas.py
-
-*(Nota: O banco de dados `notas.db` será criado de forma 100% automática na mesma pasta no primeiro início do programa, dispensando qualquer script de criação prévia).*
-
-### 3. Desativar o Ambiente Virtual (Opcional)
-
-Quando terminar de trabalhar no projeto e quiser voltar para o terminal normal do seu computador, basta digitar:
-deactivate
-
----
-
 ## ⚙️ Arquitetura e Diferenciais do Projeto (Destaque para a Avaliação)
 
 * **Persistência de Dados Robusta:** O banco de dados SQLite garante a integridade dos dados, mantendo todas as notas salvas com segurança mesmo após fechar o aplicativo.
 * **Interface Responsiva e Alinhada:** Uso inteligente de gerenciadores de layout (`grid`, `columnspan` e `sticky`) para corrigir o alinhamento das entradas de texto, aproximando os campos das notas bimestrais aos seus respectivos rótulos e otimizando o espaço da tela.
 * **Componente Orientado a Eventos:** Uso de *bindings* (`<<TreeviewSelect>>`) para detectar cliques do mouse na tabela e carregar os dados dinamicamente nos campos de texto, elevando a experiência do usuário (UX).
-
-
