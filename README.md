@@ -51,20 +51,14 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
 
 ## 🚀 Como executar o Projeto
 
-1. **Pré-requisitos:**
-
-   Certifique-se de ter o Python3 instalado em sua máquina.
-
-2. **Clonando o repositório:**
+1. **Clonando o repositório:**
 
    ```bash
    git clone https://github.com/maurocollin/sistema-notas-crud.git
    cd sistema-notas-crud
    ```
 
-3. **Criar o Ambiente Virtual:**
-
-   Execute o comando abaixo para criar a pasta do ambiente virtual (geralmente chamada de `.venv`):
+2. **Criar o Ambiente Virtual:**
 
 * **No Windows (PowerShell / Prompt de Comando):**
 
@@ -79,7 +73,12 @@ Para garantir leveza, estabilidade e compatibilidade imediata em qualquer comput
   python3 -m venv .venv
   source .venv/bin/activate
    ```
-*(Uma nova pasta chamada `.venv` surgirá no diretório do seu projeto).*
+
+3. **Finalmente execute o programa:**
+
+   ```bash
+  python3 app_notas.py
+   ```
 
 ## ⚙️ Arquitetura e Diferenciais do Projeto (Destaque para a Avaliação)
 
