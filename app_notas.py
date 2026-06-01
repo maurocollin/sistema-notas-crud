@@ -128,13 +128,14 @@ class AppCadastroNotas:
             messagebox.showerror("Erro", "Matrícula já existe.")
 
     def listar(self):
-            for i in self.tabela.get_children(): self.tabela.delete(i)
-            conn = sqlite3.connect("notas.db")
-            for row in conn.execute("SELECT * FROM alunos"):
-                lista_row = list(row)
-                lista_row[7] = f"{row[7]:.2f}"
-                self.tabela.insert("", "end", values=lista_row)
-            conn.close()
+        for i in self.tabela.get_children():
+            self.tabela.delete(i)
+        conn = sqlite3.connect("notas.db")
+        for row in conn.execute("SELECT * FROM alunos"):
+            lista_row = list(row)
+            lista_row[7] = f"{row[7]:.2f}"
+            self.tabela.insert("", "end", values=lista_row)
+        conn.close()
 
     def carregar_selecionado(self, event):
         sel = self.tabela.selection()
