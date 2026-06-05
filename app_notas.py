@@ -29,6 +29,7 @@ class AppCadastroNotas:
         self.root.title("Sistema de Notas - CRUD - Mauro Collin")
         self.root.geometry("800x550")
         self.id_selecionado = None
+        self.matricula_original = None # Guarda a matrícula original para validação
 
         # --- FRAME DE ENTRADA ---
         frame_form = ttk.LabelFrame(root, text=" Dados do Aluno ", padding=10)
@@ -101,24 +102,41 @@ class AppCadastroNotas:
         self.listar()
 
     def processar_notas(self):
-        # Valida e calcula a média das 4 notas.
         try:
-            notas = [float(getattr(self, f'txt_n{i}').get()) for i in range(1, 5)]
-            if any(n < 0 or n > 10 for n in notas):
-                raise ValueError
-            return notas, round(sum(notas)/4, 2)  # Adicionado o round com 2 casas
+            notas = []
+            for i in range(1, 5):
+                valor_campo = getattr(self, f'txt_n{i}').get().strip()
+                if valor_campo == "":
+                    notas.append(None)
+                else:
+                    nota_float = float(valor_campo)
+                    if nota_float < 0 or nota_float > 10:
+                        raise ValueError
+                    notas.append(nota_float)
+            
+            notas_preenchidas = [n for n in notas if n is not None]
+            if notas_preenchidas:
+                media = round(sum(notas_preenchidas) / len(notas_preenchidas), 2)
+            else:
+                media = None
+                
+            return notas, media
         except ValueError:
             messagebox.showerror("Erro", "Insira notas válidas (0 a 10)!")
-            return None, None
+            return False, False
 
     def inserir(self):
+        if not self.txt_nome.get().strip() or not self.txt_matricula.get().strip():
+            messagebox.showerror("Erro", "Nome e Matrícula são campos obrigatórios!")
+            return
+
         notas, media = self.processar_notas()
-        if not notas: return
+        if notas is False: return
         
         try:
             conn = sqlite3.connect("notas.db")
             conn.execute("INSERT INTO alunos (nome, matricula, n1, n2, n3, n4, media) VALUES (?,?,?,?,?,?,?)",
-                         (self.txt_nome.get(), self.txt_matricula.get(), *notas, media))
+                         (self.txt_nome.get().strip(), self.txt_matricula.get().strip(), *notas, media))
             conn.commit()
             conn.close()
             self.limpar_campos()
@@ -133,7 +151,13 @@ class AppCadastroNotas:
         conn = sqlite3.connect("notas.db")
         for row in conn.execute("SELECT * FROM alunos"):
             lista_row = list(row)
-            lista_row[7] = f"{row[7]:.2f}"
+            for idx in range(3, 7):
+                if lista_row[idx] is None:
+                    lista_row[idx] = ""
+            if row[7] is not None:
+                lista_row[7] = f"{row[7]:.2f}"
+            else:
+                lista_row[7] = ""
             self.tabela.insert("", "end", values=lista_row)
         conn.close()
 
@@ -141,37 +165,49 @@ class AppCadastroNotas:
         sel = self.tabela.selection()
         if not sel: return
 
-        # Extrai os valores da linha clicada
         val = self.tabela.item(sel[0], "values")
         self.id_selecionado = val[0]
-        
-        # Limpa e preenche cada campo
+        self.matricula_original = val[2] # Armazena a matrícula que veio do banco
+
         self.txt_nome.delete(0, 'end')
         self.txt_nome.insert(0, val[1])
         
+        # Modifica o estado para 'normal' temporariamente para poder preencher o campo
+        self.txt_matricula.config(state="normal")
         self.txt_matricula.delete(0, 'end')
         self.txt_matricula.insert(0, val[2])
+        # Desativa o campo para o usuário não conseguir digitar alterações por cima
+        self.txt_matricula.config(state="readonly")
         
-        self.txt_n1.delete(0, 'end')
-        self.txt_n1.insert(0, val[3])
-        
-        self.txt_n2.delete(0, 'end')
-        self.txt_n2.insert(0, val[4])
-        
-        self.txt_n3.delete(0, 'end')
-        self.txt_n3.insert(0, val[5])
-        
-        self.txt_n4.delete(0, 'end')
-        self.txt_n4.insert(0, val[6])
+        for i in range(1, 5):
+            campo = getattr(self, f'txt_n{i}')
+            campo.delete(0, 'end')
+            campo.insert(0, val[2 + i])
 
     def atualizar(self):
         if not self.id_selecionado: return
+        
+        # Validação de Segurança: Garante que a matrícula do campo (mesmo bloqueado) bate com a original
+        matricula_atual = self.txt_matricula.get().strip()
+        if matricula_atual != self.matricula_original:
+            messagebox.showerror("Erro", "A matrícula não pode ser modificada!")
+            return
+
+        if not self.txt_nome.get().strip():
+            messagebox.showerror("Erro", "O campo Nome é obrigatório!")
+            return
+
         notas, media = self.processar_notas()
-        if not notas: return
+        if notas is False: return
+        
         conn = sqlite3.connect("notas.db")
+        # Mantém a query atualizando a matrícula com o valor original seguro
         conn.execute("UPDATE alunos SET nome=?, matricula=?, n1=?, n2=?, n3=?, n4=?, media=? WHERE id=?",
-                     (self.txt_nome.get(), self.txt_matricula.get(), *notas, media, self.id_selecionado))
-        conn.commit(); conn.close(); self.listar()
+                     (self.txt_nome.get().strip(), self.matricula_original, *notas, media, self.id_selecionado))
+        conn.commit()
+        conn.close()
+        self.limpar_campos()
+        self.listar()
         messagebox.showinfo("Sucesso", "Dados atualizados com sucesso!")
         
     def excluir(self):
@@ -179,14 +215,20 @@ class AppCadastroNotas:
         conn = sqlite3.connect("notas.db")
         conn.execute("DELETE FROM alunos WHERE id=?", (self.id_selecionado,))
         conn.commit(); conn.close(); self.listar()
+        self.limpar_campos()
         messagebox.showinfo("Sucesso", "Dados excluídos com sucesso!")
 
     def limpar_campos(self):
         self.txt_nome.delete(0, 'end')
+        
+        # Garante que o campo volte ao estado normal ao limpar para permitir novas inserções
+        self.txt_matricula.config(state="normal")
         self.txt_matricula.delete(0, 'end')
+        
         for i in range(1, 5):
             getattr(self, f'txt_n{i}').delete(0, 'end')
         self.id_selecionado = None
+        self.matricula_original = None
 
 if __name__ == "__main__":
     inicializar_banco()
