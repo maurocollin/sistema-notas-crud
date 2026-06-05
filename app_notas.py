@@ -6,7 +6,7 @@ from tkinter import messagebox, ttk
 # 1. BANCO DE DADOS
 # ==========================================
 def inicializar_banco():
-    conexao = sqlite3.connect("./sistema-notas-crud/notas.db")
+    conexao = sqlite3.connect("notas.db")
     cursor = conexao.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS alunos (
@@ -116,7 +116,7 @@ class AppCadastroNotas:
         if not notas: return
         
         try:
-            conn = sqlite3.connect("./sistema-notas-crud/notas.db")
+            conn = sqlite3.connect("notas.db")
             conn.execute("INSERT INTO alunos (nome, matricula, n1, n2, n3, n4, media) VALUES (?,?,?,?,?,?,?)",
                          (self.txt_nome.get(), self.txt_matricula.get(), *notas, media))
             conn.commit()
@@ -130,7 +130,7 @@ class AppCadastroNotas:
     def listar(self):
         for i in self.tabela.get_children():
             self.tabela.delete(i)
-        conn = sqlite3.connect("./sistema-notas-crud/notas.db")
+        conn = sqlite3.connect("notas.db")
         for row in conn.execute("SELECT * FROM alunos"):
             lista_row = list(row)
             lista_row[7] = f"{row[7]:.2f}"
@@ -168,7 +168,7 @@ class AppCadastroNotas:
         if not self.id_selecionado: return
         notas, media = self.processar_notas()
         if not notas: return
-        conn = sqlite3.connect("./sistema-notas-crud/notas.db")
+        conn = sqlite3.connect("notas.db")
         conn.execute("UPDATE alunos SET nome=?, matricula=?, n1=?, n2=?, n3=?, n4=?, media=? WHERE id=?",
                      (self.txt_nome.get(), self.txt_matricula.get(), *notas, media, self.id_selecionado))
         conn.commit(); conn.close(); self.listar()
@@ -176,7 +176,7 @@ class AppCadastroNotas:
         
     def excluir(self):
         if not self.id_selecionado: return
-        conn = sqlite3.connect("./sistema-notas-crud/notas.db")
+        conn = sqlite3.connect("notas.db")
         conn.execute("DELETE FROM alunos WHERE id=?", (self.id_selecionado,))
         conn.commit(); conn.close(); self.listar()
         messagebox.showinfo("Sucesso", "Dados excluídos com sucesso!")
