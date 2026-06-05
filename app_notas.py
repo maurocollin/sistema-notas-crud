@@ -172,12 +172,14 @@ class AppCadastroNotas:
         conn.execute("UPDATE alunos SET nome=?, matricula=?, n1=?, n2=?, n3=?, n4=?, media=? WHERE id=?",
                      (self.txt_nome.get(), self.txt_matricula.get(), *notas, media, self.id_selecionado))
         conn.commit(); conn.close(); self.listar()
-
+        messagebox.showinfo("Sucesso", "Dados atualizados com sucesso!")
+        
     def excluir(self):
         if not self.id_selecionado: return
         conn = sqlite3.connect("notas.db")
         conn.execute("DELETE FROM alunos WHERE id=?", (self.id_selecionado,))
         conn.commit(); conn.close(); self.listar()
+        messagebox.showinfo("Sucesso", "Dados excluídos com sucesso!")
 
     def limpar_campos(self):
         self.txt_nome.delete(0, 'end')
