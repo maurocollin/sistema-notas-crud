@@ -35,6 +35,8 @@ O sistema opera de forma reativa e centraliza todas as operações essenciais em
 * **Excluir (Delete):** Remove de forma definitiva o registro do aluno selecionado do banco de dados.
 * **Cálculo Automático da Média:** O sistema elimina a necessidade de cálculo manual, processando a média aritmética das quatro notas no exato momento do cadastro ou edição.
 * **Tratamento de Exceções e Validação:** Possui regras de negócio para impedir notas menores que `0` ou maiores que `10`, além de barrar duplicidade no número de matrícula.
+* **Alunos recebem notas nulas:** a inserção das notas pode ser após o cadastro dos alunos.
+* **A matrícula é imutável:** Não é permitido atualizar o campo matrícula.
 
 ---
 
